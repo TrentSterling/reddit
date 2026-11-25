@@ -14,7 +14,8 @@ if (sort) {
     const entries = document.querySelector('#entries');
     const rows = [...entries.children].sort((a,b) => {
       const recent = b.dataset.created.localeCompare(a.dataset.created);
-      return sort.value === 'top' ? Number(b.dataset.score) - Number(a.dataset.score) || recent : recent;
+      if (sort.value === 'new') return recent;
+      return Number(b.dataset[sort.value]) - Number(a.dataset[sort.value]) || recent;
     });
     entries.append(...rows);
   });
